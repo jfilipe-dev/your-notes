@@ -9,24 +9,20 @@ Um sistema web para cadastro de notas, semelhante ao notion
 
 ## Tecnologias:
 
-- React
+- Next
 - Firebase
 
 ## Requisitos funcionais
 
 - Cadastro de usuário
 - Autenticação
-- Cadastro de categorias
-- listagem de categorias
-- Excluir categorais
-- Selecionar categoria
-- Listagem das notas por categoria
+- Cadastro de categorias [X]
+- listagem de categorias [X]
+- Excluir categorais [X]
+- Selecionar categoria [X]
+- Listagem das notas (por categoria [X])
 - Criar notas
-- Editar novas
+- Editar notas
 - Excluir notas
 
 ## [Scripts e configuração](./package.json)
-
-## Diagrama
-
-![](./public/diagram.png)
