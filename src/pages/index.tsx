@@ -14,6 +14,7 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import getValidationErrors from '../utils/getYupValidationErrors';
+import { useAuth } from '../context/useAuth';
 
 interface FormProps {
   email: string;
@@ -28,6 +29,7 @@ const schema = Yup.object().shape({
 });
 
 export default function Home() {
+  const { login } = useAuth();
   const { push } = useRouter();
 
   const [email, setEmail] = useState('');
@@ -47,7 +49,7 @@ export default function Home() {
         abortEarly: false,
       });
 
-      // TODO: fazer login
+      await login(body);
     } catch (err) {
       const newError = getValidationErrors(err);
       setError(newError as FormProps);
