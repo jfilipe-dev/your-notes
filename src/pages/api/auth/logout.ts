@@ -3,11 +3,6 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import firebaseConfig from '../../../services/firebaseConfig';
 
-interface LoginProps {
-  email: string;
-  password: string;
-}
-
 initializeApp(firebaseConfig);
 const auth = getAuth();
 

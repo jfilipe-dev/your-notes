@@ -15,6 +15,12 @@ interface LoginProps {
   password: string;
 }
 
+interface RegisterProps {
+  email: string;
+  password: string;
+  name: string;
+}
+
 interface UserInfoProps {
   id: string;
   email: string;
@@ -25,6 +31,7 @@ interface AuthContextData {
   userInfo: UserInfoProps;
   loading: boolean;
   login: (data: LoginProps) => Promise<void>;
+  register: (data: RegisterProps) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -63,11 +70,18 @@ export function AuthProvider({ children }: { children: ReactChild }) {
     }
   }, []);
 
+  const register = useCallback(async (body: RegisterProps) => {
+    const { data } = await api.post<UserInfoProps>('/auth/register', body);
+
+    setUserInfo(data);
+    redirect(true);
+  }, []);
+
   const login = useCallback(async (body: LoginProps) => {
     const { data } = await api.post<UserInfoProps>('/auth/login', body);
 
     setUserInfo(data);
-    await push('/dashboard');
+    redirect(true);
   }, []);
 
   const logout = useCallback(async () => {
@@ -90,8 +104,9 @@ export function AuthProvider({ children }: { children: ReactChild }) {
       loading,
       login,
       logout,
+      register,
     }),
-    [userInfo, loading, login],
+    [userInfo, loading, login, register],
   );
 
   return (
