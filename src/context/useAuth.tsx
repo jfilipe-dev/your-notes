@@ -25,6 +25,7 @@ interface AuthContextData {
   userInfo: UserInfoProps;
   loading: boolean;
   login: (data: LoginProps) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext({} as AuthContextData);
@@ -69,6 +70,16 @@ export function AuthProvider({ children }: { children: ReactChild }) {
     await push('/dashboard');
   }, []);
 
+  const logout = useCallback(async () => {
+    try {
+      await api.delete('/auth/logout');
+      setUserInfo({} as UserInfoProps);
+      redirect();
+    } catch {
+      //
+    }
+  }, []);
+
   useEffect(() => {
     verify();
   }, [verify]);
@@ -78,6 +89,7 @@ export function AuthProvider({ children }: { children: ReactChild }) {
       userInfo,
       loading,
       login,
+      logout,
     }),
     [userInfo, loading, login],
   );
