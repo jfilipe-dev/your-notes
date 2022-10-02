@@ -23,6 +23,10 @@ interface FormProps {
   confirmPassword: string;
 }
 
+export interface Props {
+  registerMocked?: () => void;
+}
+
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome obrigatório'),
   email: Yup.string().email('E-mail inválido').required('E-mail obrigatório'),
@@ -35,7 +39,7 @@ const schema = Yup.object().shape({
   ),
 });
 
-export default function Home() {
+export default function Home({ registerMocked }: Props) {
   const { push } = useRouter();
   const { register } = useAuth();
 
@@ -63,10 +67,13 @@ export default function Home() {
         abortEarly: false,
       });
 
+      registerMocked?.();
       await register(body);
     } catch (err) {
-      const newError = getValidationErrors(err);
-      setError(newError as FormProps);
+      if (err instanceof Yup.ValidationError) {
+        const newError = getValidationErrors(err);
+        setError(newError as FormProps);
+      }
     } finally {
       setLoading(false);
     }
@@ -101,6 +108,7 @@ export default function Home() {
             <FormControl isInvalid={!!error.name}>
               <FormLabel>Nome</FormLabel>
               <Input
+                data-testid="name-input"
                 colorScheme="blue"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -111,6 +119,7 @@ export default function Home() {
             <FormControl isInvalid={!!error.email}>
               <FormLabel>Email</FormLabel>
               <Input
+                data-testid="email-input"
                 colorScheme="blue"
                 type="email"
                 value={email}
@@ -122,6 +131,7 @@ export default function Home() {
             <FormControl isInvalid={!!error.password}>
               <FormLabel>Senha</FormLabel>
               <Input
+                data-testid="password-input"
                 colorScheme="blue"
                 type="password"
                 value={password}
@@ -133,6 +143,7 @@ export default function Home() {
             <FormControl isInvalid={!!error.confirmPassword}>
               <FormLabel>Confirmação de senha</FormLabel>
               <Input
+                data-testid="password-confirm-input"
                 colorScheme="blue"
                 type="password"
                 value={confirmPassword}
@@ -142,6 +153,7 @@ export default function Home() {
             </FormControl>
 
             <Button
+              data-testid="register-button"
               colorScheme="blue"
               onClick={handleSubmit}
               isLoading={loading}
