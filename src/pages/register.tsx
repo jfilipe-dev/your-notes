@@ -45,7 +45,10 @@ export default function Home() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({} as FormProps);
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async () => {
+    setLoading(true);
     setError({} as FormProps);
 
     const body = {
@@ -64,6 +67,8 @@ export default function Home() {
     } catch (err) {
       const newError = getValidationErrors(err);
       setError(newError as FormProps);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -136,7 +141,11 @@ export default function Home() {
               <FormErrorMessage>{error.confirmPassword}</FormErrorMessage>
             </FormControl>
 
-            <Button colorScheme="blue" onClick={handleSubmit}>
+            <Button
+              colorScheme="blue"
+              onClick={handleSubmit}
+              isLoading={loading}
+            >
               Cadastrar
             </Button>
 

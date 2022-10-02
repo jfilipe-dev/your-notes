@@ -8,6 +8,7 @@ import {
   useMemo,
   useCallback,
 } from 'react';
+import { toast } from 'react-toastify';
 import api from '../services/api';
 
 interface LoginProps {
@@ -71,17 +72,25 @@ export function AuthProvider({ children }: { children: ReactChild }) {
   }, []);
 
   const register = useCallback(async (body: RegisterProps) => {
-    const { data } = await api.post<UserInfoProps>('/auth/register', body);
+    try {
+      const { data } = await api.post<UserInfoProps>('/auth/register', body);
 
-    setUserInfo(data);
-    redirect(true);
+      setUserInfo(data);
+      redirect(true);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
   }, []);
 
   const login = useCallback(async (body: LoginProps) => {
-    const { data } = await api.post<UserInfoProps>('/auth/login', body);
+    try {
+      const { data } = await api.post<UserInfoProps>('/auth/login', body);
 
-    setUserInfo(data);
-    redirect(true);
+      setUserInfo(data);
+      redirect(true);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
   }, []);
 
   const logout = useCallback(async () => {
