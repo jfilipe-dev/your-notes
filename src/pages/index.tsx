@@ -21,6 +21,10 @@ interface FormProps {
   password: string;
 }
 
+export interface Props {
+  loginMocked?: () => void;
+}
+
 const schema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('E-mail obrigatório'),
   password: Yup.string()
@@ -28,7 +32,7 @@ const schema = Yup.object().shape({
     .required('Senha obrigatória'),
 });
 
-export default function Home() {
+export default function Home({ loginMocked }: Props) {
   const { login } = useAuth();
   const { push } = useRouter();
 
@@ -52,10 +56,13 @@ export default function Home() {
         abortEarly: false,
       });
 
+      loginMocked?.();
       await login(body);
     } catch (err) {
-      const newError = getValidationErrors(err);
-      setError(newError as FormProps);
+      if (err instanceof Yup.ValidationError) {
+        const newError = getValidationErrors(err);
+        setError(newError as FormProps);
+      }
     } finally {
       setLoading(false);
     }
@@ -90,6 +97,7 @@ export default function Home() {
             <FormControl isInvalid={!!error.email}>
               <FormLabel>Email</FormLabel>
               <Input
+                data-testid="email-input"
                 colorScheme="blue"
                 type="email"
                 value={email}
@@ -101,6 +109,7 @@ export default function Home() {
             <FormControl isInvalid={!!error.password}>
               <FormLabel>Senha</FormLabel>
               <Input
+                data-testid="password-input"
                 colorScheme="blue"
                 type="password"
                 value={password}
@@ -110,6 +119,7 @@ export default function Home() {
             </FormControl>
 
             <Button
+              data-testid="login-button"
               colorScheme="blue"
               onClick={handleSubmit}
               isLoading={loading}
