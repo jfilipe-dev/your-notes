@@ -10,7 +10,13 @@ const db = getFirestore(app);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const newNote = { title: 'Sem título', message: '' };
+    const { userId } = req.body;
+
+    if (!userId) {
+      res.status(403).json({ error: 'Usuário não identificado' });
+    }
+
+    const newNote = { title: 'Sem título', message: '', userId };
 
     try {
       await addDoc(collection(db, 'notes'), newNote);
