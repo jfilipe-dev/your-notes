@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import AreaEditor from '../../components/AreaEditor';
 import Sidebar from '../../components/Sidebar';
+import { useAuth } from '../../context/useAuth';
 import api from '../../services/api';
 
 export interface Note {
@@ -12,17 +13,27 @@ export interface Note {
 }
 
 export default function dashboard() {
+  const { userInfo } = useAuth();
   const [isSmallerThan960] = useMediaQuery('(max-width: 960px)');
 
   const [notes, setNotes] = useState<Note[]>([]);
 
   const loadNotes = useCallback(async () => {
-    console.log('Loading notes');
+    try {
+      const { data } = await api.get('/notes/load', {
+        params: {
+          userId: userInfo.id,
+        },
+      });
+      setNotes(data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
   }, []);
 
   const handleCreateNote = useCallback(async () => {
     try {
-      const { data } = await api.post('/notes/create');
+      const { data } = await api.post('/notes/create', { userId: userInfo.id });
       setNotes((prev) => [...prev, data]);
     } catch (error) {
       toast.error(error.response.data.error);
