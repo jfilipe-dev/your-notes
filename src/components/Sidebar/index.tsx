@@ -1,7 +1,13 @@
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { useAuth } from '../../context/useAuth';
+import { Note } from '../../pages/dashboard';
 
-function Sidebar() {
+interface SidebarProps {
+  createNote: () => void;
+  notes: Note[];
+}
+
+function Sidebar({ createNote, notes }: SidebarProps) {
   const { logout } = useAuth();
 
   return (
@@ -32,9 +38,9 @@ function Sidebar() {
         color="#FFFFFF"
       >
         <Flex display="flex" flexDirection="column" overflowY="auto">
-          <p style={{ textAlign: 'left', marginBottom: 50 }}>
-            titulo do negocio ai do post n sei o que la
-          </p>
+          {notes.map(({ title }) => (
+            <p style={{ textAlign: 'left', marginBottom: 12 }}>{title}</p>
+          ))}
         </Flex>
 
         <Button
@@ -42,6 +48,7 @@ function Sidebar() {
           colorScheme="white"
           borderStyle="dashed"
           variant="outline"
+          onClick={createNote}
         >
           Nova nota
         </Button>
