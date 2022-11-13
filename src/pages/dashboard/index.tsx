@@ -10,6 +10,7 @@ import api from '../../services/api';
 export interface Note {
   title: string;
   message: string;
+  id: string;
 }
 
 export default function dashboard() {
@@ -17,8 +18,9 @@ export default function dashboard() {
   const [isSmallerThan960] = useMediaQuery('(max-width: 960px)');
 
   const [notes, setNotes] = useState<Note[]>([]);
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
-  const loadNotes = useCallback(async () => {
+  const loadNotes = useCallback(async (getLast = true) => {
     try {
       const { data } = await api.get('/notes/load', {
         params: {
@@ -26,6 +28,9 @@ export default function dashboard() {
         },
       });
       setNotes(data);
+      if (getLast) {
+        setSelectedNote(data[data.length - 1]);
+      }
     } catch (error) {
       toast.error(error.response.data.error);
     }
@@ -33,8 +38,22 @@ export default function dashboard() {
 
   const handleCreateNote = useCallback(async () => {
     try {
-      const { data } = await api.post('/notes/create', { userId: userInfo.id });
-      setNotes((prev) => [...prev, data]);
+      await api.post('/notes/create', { userId: userInfo.id });
+      loadNotes();
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  }, [loadNotes]);
+
+  const handleSelectNote = useCallback((note: Note) => {
+    setSelectedNote(note);
+  }, []);
+
+  const handleUpdateNote = useCallback(async (data: Note) => {
+    try {
+      await api.put('/notes/update', data);
+      loadNotes(false);
+      toast.success('Nota atualizada com sucesso!');
     } catch (error) {
       toast.error(error.response.data.error);
     }
@@ -56,10 +75,14 @@ export default function dashboard() {
         templateRows="repeat(2, 1fr)"
       >
         <GridItem colSpan={1}>
-          <Sidebar createNote={handleCreateNote} notes={notes} />
+          <Sidebar
+            createNote={handleCreateNote}
+            notes={notes}
+            onSelect={handleSelectNote}
+          />
         </GridItem>
         <GridItem colSpan={4}>
-          <AreaEditor />
+          <AreaEditor data={selectedNote} onUpdate={handleUpdateNote} />
         </GridItem>
       </Grid>
     </>

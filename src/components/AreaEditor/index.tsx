@@ -1,6 +1,31 @@
-import { Flex } from '@chakra-ui/react';
+import { Button, Flex, Input, Textarea } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { Note } from '../../pages/dashboard';
 
-export default function AreaEditor() {
+interface AreaEditor {
+  data: Note;
+  onUpdate: (note: Note) => void;
+}
+
+export default function AreaEditor({ data, onUpdate }: AreaEditor) {
+  const [message, setMessage] = useState('');
+  const [title, setTitle] = useState('');
+
+  const update = () => {
+    const note = {
+      ...data,
+      message,
+      title,
+    };
+
+    onUpdate(note);
+  };
+
+  useEffect(() => {
+    setMessage(data?.message || '');
+    setTitle(data?.title || '');
+  }, [data]);
+
   return (
     <Flex
       display="block"
@@ -18,11 +43,37 @@ export default function AreaEditor() {
         borderBottom="2px"
         borderColor="#181818"
       >
-        Sem título
+        <Input
+          size="lg"
+          value={title}
+          colorScheme="white"
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
+        <Button
+          data-testid="login-button"
+          colorScheme="blue"
+          size="lg"
+          ml={8}
+          onClick={update}
+        >
+          Salvar
+        </Button>
       </Flex>
 
-      <Flex display="flex" h="90vh" pt={12}>
-        Teste Teste
+      <Flex display="flex" h="90vh" py={12}>
+        <Textarea
+          placeholder="Digite seu texto aqui"
+          border="none"
+          color="white"
+          _placeholder={{
+            color: '#3c3b3b',
+          }}
+          flex={1}
+          height="100%"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
       </Flex>
     </Flex>
   );

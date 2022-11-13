@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { getFirestore, doc, updateDoc } from 'firebase/firestore';
 
 import firebaseConfig from '../../../services/firebaseConfig';
 
@@ -9,23 +9,24 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'POST') {
-    const { userId } = req.body;
+  if (req.method === 'PUT') {
+    const data = req.body;
 
-    if (!userId) {
+    if (!data.userId) {
       res.status(403).json({ error: 'Usuário não identificado' });
     }
 
-    const newNote = { title: 'Sem título', message: '', userId };
+    const newNote = { ...data };
 
     try {
-      await addDoc(collection(db, 'notes'), newNote);
+      const cardDocRef = doc(db, 'notes', data.id);
+      await updateDoc(cardDocRef, newNote);
       res.status(200).json({});
     } catch (error) {
       res.status(400).json({ error: 'Não foi possível criar nova nota' });
     }
   } else {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'PUT');
     res.status(405).end('METHOD Not Allowed');
   }
 };

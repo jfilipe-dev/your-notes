@@ -5,9 +5,10 @@ import { Note } from '../../pages/dashboard';
 interface SidebarProps {
   createNote: () => void;
   notes: Note[];
+  onSelect: (note: Note) => void;
 }
 
-function Sidebar({ createNote, notes }: SidebarProps) {
+function Sidebar({ createNote, notes, onSelect }: SidebarProps) {
   const { logout } = useAuth();
 
   return (
@@ -38,8 +39,16 @@ function Sidebar({ createNote, notes }: SidebarProps) {
         color="#FFFFFF"
       >
         <Flex display="flex" flexDirection="column" overflowY="auto">
-          {notes.map(({ title }) => (
-            <p style={{ textAlign: 'left', marginBottom: 12 }}>{title}</p>
+          {notes.map((note) => (
+            <Button
+              variant="link"
+              style={{ textAlign: 'left', marginBottom: 12 }}
+              display="block"
+              onClick={() => onSelect(note)}
+              colorScheme="white"
+            >
+              {note.title}
+            </Button>
           ))}
         </Flex>
 
