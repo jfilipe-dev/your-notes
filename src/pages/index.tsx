@@ -73,9 +73,9 @@ export default function Home({ loginMocked }: Props) {
       <Head>
         <title>Login</title>
       </Head>
-      <Center bg="gray.200" minH="100vh" minW="100vw" px="6">
+      <Center bg="#1E1E1E" minH="100vh" minW="100vw" px="6">
         <Flex
-          bg="white"
+          bg="#070707"
           w="100%"
           my="6"
           maxWidth={540}
@@ -89,11 +89,12 @@ export default function Home({ loginMocked }: Props) {
             fontWeight="bold"
             fontSize="3xl"
             marginBottom={6}
+            color="#DDFF0E"
           >
             Login
           </Text>
 
-          <Stack spacing={6}>
+          <Stack spacing={6} color="white">
             <FormControl isInvalid={!!error.email}>
               <FormLabel>Email</FormLabel>
               <Input
@@ -102,6 +103,7 @@ export default function Home({ loginMocked }: Props) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                focusBorderColor="#DDFF0E"
               />
               <FormErrorMessage>{error.email}</FormErrorMessage>
             </FormControl>
@@ -114,13 +116,15 @@ export default function Home({ loginMocked }: Props) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                focusBorderColor="#DDFF0E"
               />
               <FormErrorMessage>{error.password}</FormErrorMessage>
             </FormControl>
 
             <Button
               data-testid="login-button"
-              colorScheme="blue"
+              bg="#DDFF0E"
+              color="black"
               onClick={handleSubmit}
               isLoading={loading}
             >
@@ -129,7 +133,7 @@ export default function Home({ loginMocked }: Props) {
 
             <Button
               onClick={() => push('/register')}
-              colorScheme="blue"
+              color="#DDFF0E"
               variant="link"
             >
               Ainda não tem login? Cadastre-se

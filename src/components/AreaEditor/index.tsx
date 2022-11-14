@@ -1,9 +1,10 @@
-import { Button, Flex, Input, Textarea } from '@chakra-ui/react';
+import { Button, Flex, HStack, Icon, Input, Textarea } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Note } from '../../pages/dashboard';
+import { FiTrash2, FiSave } from 'react-icons/fi';
 
 interface AreaEditor {
-  data: Note;
+  data?: Note;
   onUpdate: (note: Note) => void;
 }
 
@@ -37,28 +38,34 @@ export default function AreaEditor({ data, onUpdate }: AreaEditor) {
       <Flex
         display="flex"
         alignItems="center"
-        justifyContent="start"
+        justifyContent="space-between"
         h="10vh"
-        color="white"
         borderBottom="2px"
-        borderColor="#181818"
+        color="white"
+        borderColor="#white"
       >
         <Input
+          name="title"
           size="lg"
           value={title}
           colorScheme="white"
           onChange={(e) => setTitle(e.target.value)}
+          data-testid="input-title"
         />
 
-        <Button
-          data-testid="login-button"
-          colorScheme="blue"
-          size="lg"
-          ml={8}
-          onClick={update}
-        >
-          Salvar
-        </Button>
+        <HStack spacing="2" ml="3">
+          <Button variant="outline" size="lg" data-testid="update-button">
+            <Icon
+              as={FiSave}
+              fontSize="28"
+              color="#DDFF0E"
+              onClick={update}
+            ></Icon>
+          </Button>
+          <Button variant="outline" size="lg">
+            <Icon as={FiTrash2} fontSize="28" color="#F24482"></Icon>
+          </Button>
+        </HStack>
       </Flex>
 
       <Flex display="flex" h="90vh" py={12}>
@@ -73,6 +80,7 @@ export default function AreaEditor({ data, onUpdate }: AreaEditor) {
           height="100%"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          data-testid="textarea-test"
         />
       </Flex>
     </Flex>

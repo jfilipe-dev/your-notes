@@ -84,9 +84,9 @@ export default function Home({ registerMocked }: Props) {
       <Head>
         <title>Cadastro</title>
       </Head>
-      <Center bg="gray.200" minH="100vh" minW="100vw" px="6">
+      <Center bg="#1E1E1E" minH="100vh" minW="100vw" px="6">
         <Flex
-          bg="white"
+          bg="#070707"
           w="100%"
           my="6"
           maxWidth={540}
@@ -100,11 +100,12 @@ export default function Home({ registerMocked }: Props) {
             fontWeight="bold"
             fontSize="3xl"
             marginBottom={6}
+            color="#DDFF0E"
           >
             Cadastro
           </Text>
 
-          <Stack spacing={6}>
+          <Stack spacing={6} color="white">
             <FormControl isInvalid={!!error.name}>
               <FormLabel>Nome</FormLabel>
               <Input
@@ -112,6 +113,7 @@ export default function Home({ registerMocked }: Props) {
                 colorScheme="blue"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                focusBorderColor="#DDFF0E"
               />
               <FormErrorMessage>{error.name}</FormErrorMessage>
             </FormControl>
@@ -124,6 +126,7 @@ export default function Home({ registerMocked }: Props) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                focusBorderColor="#DDFF0E"
               />
               <FormErrorMessage>{error.email}</FormErrorMessage>
             </FormControl>
@@ -136,6 +139,7 @@ export default function Home({ registerMocked }: Props) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                focusBorderColor="#DDFF0E"
               />
               <FormErrorMessage>{error.password}</FormErrorMessage>
             </FormControl>
@@ -148,20 +152,22 @@ export default function Home({ registerMocked }: Props) {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                focusBorderColor="#DDFF0E"
               />
               <FormErrorMessage>{error.confirmPassword}</FormErrorMessage>
             </FormControl>
 
             <Button
               data-testid="register-button"
-              colorScheme="blue"
+              bg="#DDFF0E"
+              color="black"
               onClick={handleSubmit}
               isLoading={loading}
             >
               Cadastrar
             </Button>
 
-            <Button onClick={() => push('/')} colorScheme="blue" variant="link">
+            <Button onClick={() => push('/')} color="#DDFF0E" variant="link">
               Já tem login? Entrar
             </Button>
           </Stack>

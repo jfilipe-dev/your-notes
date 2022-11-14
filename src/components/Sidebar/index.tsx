@@ -5,7 +5,7 @@ import { Note } from '../../pages/dashboard';
 interface SidebarProps {
   createNote: () => void;
   notes: Note[];
-  onSelect: (note: Note) => void;
+  onSelect?: (note: Note) => void;
 }
 
 function Sidebar({ createNote, notes, onSelect }: SidebarProps) {
@@ -25,11 +25,12 @@ function Sidebar({ createNote, notes, onSelect }: SidebarProps) {
         alignItems="center"
         justifyContent="center"
         h="10vh"
+        fontWeight="bold"
         color="#DDFF0E"
         borderBottom="2px"
         borderColor="#181818"
       >
-        <h1>YOUR-NOTES</h1>
+        YOUR-NOTES
       </Box>
       <Flex
         display="flex"
@@ -53,6 +54,7 @@ function Sidebar({ createNote, notes, onSelect }: SidebarProps) {
         </Flex>
 
         <Button
+          data-testid="mewnote-button"
           my="1rem"
           colorScheme="white"
           borderStyle="dashed"
@@ -62,6 +64,7 @@ function Sidebar({ createNote, notes, onSelect }: SidebarProps) {
           Nova nota
         </Button>
         <Button
+          data-testid="exit-button"
           onClick={logout}
           colorScheme="red"
           color="white"

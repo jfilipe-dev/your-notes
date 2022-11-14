@@ -12,8 +12,14 @@ export interface Note {
   message: string;
   id: string;
 }
-
-export default function dashboard() {
+export interface Props {
+  sidebarCreateMocked?: () => void;
+  areaEditorUpdateMocked?: () => void;
+}
+export default function dashboard({
+  sidebarCreateMocked,
+  areaEditorUpdateMocked,
+}: Props) {
   const { userInfo } = useAuth();
   const [isSmallerThan960] = useMediaQuery('(max-width: 960px)');
 
@@ -32,7 +38,7 @@ export default function dashboard() {
         setSelectedNote(data[data.length - 1]);
       }
     } catch (error) {
-      toast.error(error.response.data.error);
+      //  toast.error(error.response.data.error);
     }
   }, []);
 
@@ -40,6 +46,8 @@ export default function dashboard() {
     try {
       await api.post('/notes/create', { userId: userInfo.id });
       loadNotes();
+
+      sidebarCreateMocked?.();
     } catch (error) {
       toast.error(error.response.data.error);
     }
@@ -54,6 +62,7 @@ export default function dashboard() {
       await api.put('/notes/update', data);
       loadNotes(false);
       toast.success('Nota atualizada com sucesso!');
+      areaEditorUpdateMocked?.();
     } catch (error) {
       toast.error(error.response.data.error);
     }
