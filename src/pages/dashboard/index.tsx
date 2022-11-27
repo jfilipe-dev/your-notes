@@ -15,10 +15,14 @@ export interface Note {
 export interface Props {
   sidebarCreateMocked?: () => void;
   areaEditorUpdateMocked?: () => void;
+  areaEditorDeleteMocked?: () => void;
+  mockedNote?: Note;
 }
 export default function dashboard({
   sidebarCreateMocked,
   areaEditorUpdateMocked,
+  areaEditorDeleteMocked,
+  mockedNote,
 }: Props) {
   const { userInfo } = useAuth();
   const [isSmallerThan960] = useMediaQuery('(max-width: 960px)');
@@ -38,7 +42,7 @@ export default function dashboard({
         setSelectedNote(data[data.length - 1]);
       }
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response?.data?.error);
     }
   }, []);
 
@@ -57,18 +61,18 @@ export default function dashboard({
     setSelectedNote(note);
   }, []);
 
-  const handleUpdateNote = useCallback(async (data: Note) => {
+  const handleUpdateNote = useCallback(async (data = mockedNote) => {
     try {
       await api.put('/notes/update', data);
       loadNotes(false);
       toast.success('Nota atualizada com sucesso!');
       areaEditorUpdateMocked?.();
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response?.data?.error);
     }
   }, []);
 
-  const handleDeleteNote = useCallback(async (noteId: string) => {
+  const handleDeleteNote = useCallback(async (noteId = mockedNote.id) => {
     try {
       await api.delete(`/notes/delete/`, {
         params: {
@@ -78,9 +82,9 @@ export default function dashboard({
       });
       loadNotes();
       toast.success('Nota deletada com sucesso!');
-      areaEditorUpdateMocked?.();
+      areaEditorDeleteMocked?.();
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response?.data?.error);
     }
   }, []);
 

@@ -63,7 +63,7 @@ export default function AreaEditor({ data, onUpdate, onDelete }: AreaEditor) {
           <Button variant="outline" size="lg" data-testid="update-button">
             <Icon as={FiSave} fontSize="28" color="#DDFF0E" onClick={update} />
           </Button>
-          <Button variant="outline" size="lg">
+          <Button variant="outline" size="lg" data-testid="delete-button">
             <Icon
               as={FiTrash2}
               fontSize="28"
