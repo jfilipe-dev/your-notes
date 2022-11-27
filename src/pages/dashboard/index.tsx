@@ -38,7 +38,7 @@ export default function dashboard({
         setSelectedNote(data[data.length - 1]);
       }
     } catch (error) {
-      //  toast.error(error.response.data.error);
+      toast.error(error.response.data.error);
     }
   }, []);
 
@@ -68,6 +68,22 @@ export default function dashboard({
     }
   }, []);
 
+  const handleDeleteNote = useCallback(async (noteId: string) => {
+    try {
+      await api.delete(`/notes/delete/`, {
+        params: {
+          userId: userInfo.id,
+          noteId,
+        },
+      });
+      loadNotes();
+      toast.success('Nota deletada com sucesso!');
+      areaEditorUpdateMocked?.();
+    } catch (error) {
+      toast.error(error.response.data.error);
+    }
+  }, []);
+
   useEffect(() => {
     loadNotes();
   }, [loadNotes]);
@@ -91,7 +107,11 @@ export default function dashboard({
           />
         </GridItem>
         <GridItem colSpan={4}>
-          <AreaEditor data={selectedNote} onUpdate={handleUpdateNote} />
+          <AreaEditor
+            data={selectedNote}
+            onUpdate={handleUpdateNote}
+            onDelete={handleDeleteNote}
+          />
         </GridItem>
       </Grid>
     </>

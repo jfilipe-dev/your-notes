@@ -5,6 +5,7 @@ import { Note } from '../../pages/dashboard';
 interface SidebarProps {
   createNote: () => void;
   notes: Note[];
+  // eslint-disable-next-line react/require-default-props
   onSelect?: (note: Note) => void;
 }
 
