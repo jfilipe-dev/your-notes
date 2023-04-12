@@ -82,7 +82,7 @@ export default function Home({ registerMocked }: Props) {
   return (
     <>
       <Head>
-        <title>Cadastro</title>
+        <title>Sign Up</title>
       </Head>
       <Center bg="#1E1E1E" minH="100vh" minW="100vw" px="6">
         <Flex
@@ -102,12 +102,12 @@ export default function Home({ registerMocked }: Props) {
             marginBottom={6}
             color="#DDFF0E"
           >
-            Cadastro
+            Sign Up
           </Text>
 
           <Stack spacing={6} color="white">
             <FormControl isInvalid={!!error.name}>
-              <FormLabel>Nome</FormLabel>
+              <FormLabel>Name</FormLabel>
               <Input
                 data-testid="name-input"
                 colorScheme="blue"
@@ -132,7 +132,7 @@ export default function Home({ registerMocked }: Props) {
             </FormControl>
 
             <FormControl isInvalid={!!error.password}>
-              <FormLabel>Senha</FormLabel>
+              <FormLabel>Password</FormLabel>
               <Input
                 data-testid="password-input"
                 colorScheme="blue"
@@ -145,7 +145,7 @@ export default function Home({ registerMocked }: Props) {
             </FormControl>
 
             <FormControl isInvalid={!!error.confirmPassword}>
-              <FormLabel>Confirmação de senha</FormLabel>
+              <FormLabel>Confirm Password</FormLabel>
               <Input
                 data-testid="password-confirm-input"
                 colorScheme="blue"
@@ -164,11 +164,11 @@ export default function Home({ registerMocked }: Props) {
               onClick={handleSubmit}
               isLoading={loading}
             >
-              Cadastrar
+              Sign Up
             </Button>
 
             <Button onClick={() => push('/')} color="#DDFF0E" variant="link">
-              Já tem login? Entrar
+              Sign Up
             </Button>
           </Stack>
         </Flex>
