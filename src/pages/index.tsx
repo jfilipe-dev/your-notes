@@ -75,7 +75,7 @@ export default function Home({ loginMocked }: Props) {
       </Head>
       <Center bg="#1E1E1E" minH="100vh" minW="100vw" px="6">
         <Flex
-          bg="#070707"
+          bg="#121213"
           w="100%"
           my="6"
           maxWidth={540}
@@ -89,7 +89,7 @@ export default function Home({ loginMocked }: Props) {
             fontWeight="bold"
             fontSize="3xl"
             marginBottom={6}
-            color="#DDFF0E"
+            color="#FFF"
           >
             Login
           </Text>
@@ -103,7 +103,7 @@ export default function Home({ loginMocked }: Props) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                focusBorderColor="#DDFF0E"
+                focusBorderColor="#FFD257"
               />
               <FormErrorMessage>{error.email}</FormErrorMessage>
             </FormControl>
@@ -116,15 +116,15 @@ export default function Home({ loginMocked }: Props) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                focusBorderColor="#DDFF0E"
+                focusBorderColor="#FFD257"
               />
               <FormErrorMessage>{error.password}</FormErrorMessage>
             </FormControl>
 
             <Button
               data-testid="login-button"
-              bg="#DDFF0E"
-              color="black"
+              bg="#F05071"
+              color="#FFF"
               onClick={handleSubmit}
               isLoading={loading}
             >
@@ -133,7 +133,7 @@ export default function Home({ loginMocked }: Props) {
 
             <Button
               onClick={() => push('/register')}
-              color="#DDFF0E"
+              color="#FFF"
               variant="link"
             >
               Ainda não tem login? Cadastre-se
