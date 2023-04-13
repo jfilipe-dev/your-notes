@@ -71,7 +71,7 @@ export default function Home({ loginMocked }: Props) {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Sign In</title>
       </Head>
       <Center bg="#1E1E1E" minH="100vh" minW="100vw" px="6">
         <Flex
@@ -91,7 +91,7 @@ export default function Home({ loginMocked }: Props) {
             marginBottom={6}
             color="#FFF"
           >
-            Login
+            Sign In
           </Text>
 
           <Stack spacing={6} color="white">
@@ -109,7 +109,7 @@ export default function Home({ loginMocked }: Props) {
             </FormControl>
 
             <FormControl isInvalid={!!error.password}>
-              <FormLabel>Senha</FormLabel>
+              <FormLabel>Password</FormLabel>
               <Input
                 data-testid="password-input"
                 colorScheme="blue"
@@ -128,7 +128,7 @@ export default function Home({ loginMocked }: Props) {
               onClick={handleSubmit}
               isLoading={loading}
             >
-              Entrar
+              Sign In
             </Button>
 
             <Button
@@ -136,7 +136,7 @@ export default function Home({ loginMocked }: Props) {
               color="#FFF"
               variant="link"
             >
-              Ainda não tem login? Cadastre-se
+              Dont have an account? Create account
             </Button>
           </Stack>
         </Flex>

@@ -6,7 +6,8 @@ Um sistema web para cadastro de notas, semelhante ao notion
 
 - Ícaro Pereira Ramos
 - João Filipe Pereira Andrade
-
+- Willian Kiyoshi Onuki
+- Douglas Silva Ribeiro
 ## Tecnologias:
 
 - Next
@@ -16,11 +17,11 @@ Um sistema web para cadastro de notas, semelhante ao notion
 
 - Cadastro de usuário
 - Autenticação
-- Cadastro de categorias [X]
-- listagem de categorias [X]
-- Excluir categorais [X]
-- Selecionar categoria [X]
-- Listagem das notas (por categoria [X])
+- Cadastro de categorias
+- listagem de categorias
+- Excluir categorais
+- Selecionar categoria
+- Listagem das notas (por categoria)
 - Criar notas
 - Editar notas
 - Excluir notas
