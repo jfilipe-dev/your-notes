@@ -86,7 +86,7 @@ export default function Home({ registerMocked }: Props) {
       </Head>
       <Center bg="#1E1E1E" minH="100vh" minW="100vw" px="6">
         <Flex
-          bg="#070707"
+          bg="#121213"
           w="100%"
           my="6"
           maxWidth={540}
@@ -100,7 +100,7 @@ export default function Home({ registerMocked }: Props) {
             fontWeight="bold"
             fontSize="3xl"
             marginBottom={6}
-            color="#DDFF0E"
+            color="#FFF"
           >
             Sign Up
           </Text>
@@ -113,7 +113,7 @@ export default function Home({ registerMocked }: Props) {
                 colorScheme="blue"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                focusBorderColor="#DDFF0E"
+                focusBorderColor="#FFD257"
               />
               <FormErrorMessage>{error.name}</FormErrorMessage>
             </FormControl>
@@ -126,7 +126,7 @@ export default function Home({ registerMocked }: Props) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                focusBorderColor="#DDFF0E"
+                focusBorderColor="#FFD257"
               />
               <FormErrorMessage>{error.email}</FormErrorMessage>
             </FormControl>
@@ -139,7 +139,7 @@ export default function Home({ registerMocked }: Props) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                focusBorderColor="#DDFF0E"
+                focusBorderColor="#FFD257"
               />
               <FormErrorMessage>{error.password}</FormErrorMessage>
             </FormControl>
@@ -152,22 +152,22 @@ export default function Home({ registerMocked }: Props) {
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                focusBorderColor="#DDFF0E"
+                focusBorderColor="#FFD257"
               />
               <FormErrorMessage>{error.confirmPassword}</FormErrorMessage>
             </FormControl>
 
             <Button
               data-testid="register-button"
-              bg="#DDFF0E"
-              color="black"
+              bg="#F05071"
+              color="#FFF"
               onClick={handleSubmit}
               isLoading={loading}
             >
               Sign Up
             </Button>
 
-            <Button onClick={() => push('/')} color="#DDFF0E" variant="link">
+            <Button onClick={() => push('/')} color="#FFF" variant="link">
               Sign Up
             </Button>
           </Stack>
